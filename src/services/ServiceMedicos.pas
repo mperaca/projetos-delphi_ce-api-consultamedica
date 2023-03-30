@@ -1,0 +1,46 @@
+unit ServiceMedicos;
+
+interface
+
+uses Horse, Horse.Jhonson, System.JSON, System.SysUtils, System.StrUtils;
+
+type
+  TServicoMedico = class
+    private
+    public
+      procedure ListarMedicos(Req: THorseRequest; Res: THorseResponse);
+      procedure CriarMedico(Req: THorseRequest; Res: THorseResponse);
+      procedure AlterarMedico(Req: THorseRequest; Res: THorseResponse);
+      procedure ExcluirMedico(Req: THorseRequest; Res: THorseResponse);
+  end;
+
+
+implementation
+
+{ TServicoMedico }
+
+procedure TServicoMedico.CriarMedico(Req: THorseRequest; Res: THorseResponse);
+begin
+  Res.Send('Cria Médico');
+end;
+
+procedure TServicoMedico.ListarMedicos(Req: THorseRequest; Res: THorseResponse);
+begin
+  Res.Send('Lista Médicos');
+end;
+
+procedure TServicoMedico.AlterarMedico(Req: THorseRequest; Res: THorseResponse);
+var id: string;
+begin
+  Req.Params.TryGetValue('id',id);
+  Res.Send('Altera Médico '+id);
+end;
+
+procedure TServicoMedico.ExcluirMedico(Req: THorseRequest; Res: THorseResponse);
+var id: string;
+begin
+  Req.Params.TryGetValue('id',id);
+  Res.Send('Exclui Médico '+id);
+end;
+
+end.
