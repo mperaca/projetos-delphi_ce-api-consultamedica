@@ -9,12 +9,14 @@ uses
   System.JSON,
   Horse.Jhonson,
   Horse.Compression,
+  Horse.GBSwagger,
   Horse.BasicAuthentication,
   System.SysUtils,
   ControllerMedicos in 'src\controllers\ControllerMedicos.pas',
   ServiceMedicos in 'src\services\ServiceMedicos.pas',
   RepositoryMedicos in 'src\repositories\RepositoryMedicos.pas',
-  ModelMedicos in 'src\models\ModelMedicos.pas';
+  ModelMedicos in 'src\models\ModelMedicos.pas',
+  Erros in 'src\models\Erros.pas';
 
 var usuarios: TJSONArray;
     controllerMedico: TControllerMedico;
@@ -26,6 +28,7 @@ begin
 
   THorse.Use(Compression());
   THorse.Use(Jhonson);
+  THorse.Use(HorseSwagger);
 
 // Verifica Autenticação (Basic Authentication)
   THorse.Use(HorseBasicAuthentication(

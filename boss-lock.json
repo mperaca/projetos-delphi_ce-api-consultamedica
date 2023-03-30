@@ -18,6 +18,14 @@
 			"failed": false,
 			"changed": false
 		},
+		"https://github.com/gabrielbaltazar/gbswagger": {
+			"name": "gbswagger",
+			"version": "3.0.6",
+			"hash": "fef57f5c1743c22b50266f159079d4ff",
+			"artifacts": {},
+			"failed": false,
+			"changed": false
+		},
 		"https://github.com/hashload/horse-basic-auth": {
 			"name": "horse-basic-auth",
 			"version": "1.2.3",

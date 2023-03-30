@@ -59,7 +59,7 @@
         <DCC_K>false</DCC_K>
         <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;$(DCC_Namespace)</DCC_Namespace>
         <SanitizedProjectName>APIConsultaMedica</SanitizedProjectName>
-        <DCC_UnitSearchPath>modules\.dcp;modules\.dcu;modules;modules\horse\src;modules\horse-basic-auth\src;modules\horse-compression\src;modules\jhonson\src;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <DCC_UnitSearchPath>modules\.dcp;modules\.dcu;modules;modules\gbswagger\Source\Core;modules\gbswagger\Source\Datasnap;modules\gbswagger\Source\Horse;modules\gbswagger\Source\Validator;modules\horse\src;modules\horse-basic-auth\src;modules\horse-compression\src;modules\jhonson\src;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Android)'!=''">
         <DCC_UsePackage>DBXSqliteDriver;IndyIPCommon;RESTComponents;bindcompdbx;DBXInterBaseDriver;IndyIPServer;IndySystem;tethering;fmxFireDAC;FireDAC;bindcompfmx;FireDACSqliteDriver;ibmonitor;FMXTee;soaprtl;DbxCommonDriver;FmxTeeUI;ibxpress;fmx;FireDACIBDriver;xmlrtl;soapmidas;ibxbindings;rtl;DbxClientDriver;CustomIPTransport;dbexpress;IndyCore;bindcomp;dsnap;FireDACCommon;IndyIPClient;RESTBackendComponents;soapserver;dbxcds;bindengine;CloudService;dsnapxml;dbrtl;IndyProtocols;FireDACCommonDriver;inet;$(DCC_UsePackage)</DCC_UsePackage>
@@ -127,7 +127,7 @@
         <DCC_RemoteDebug>false</DCC_RemoteDebug>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <Manifest_File>(None)</Manifest_File>
-        <DCC_UnitSearchPath>D:\ProDelphiCE\API_ConsultasMedicas\modules\jhonson\src;D:\ProDelphiCE\API_ConsultasMedicas\modules\horse-basic-auth\src;D:\ProDelphiCE\API_ConsultasMedicas\modules\horse-compression\src;D:\ProDelphiCE\API_ConsultasMedicas\src;D:\ProDelphiCE\API_ConsultasMedicas\src\services;D:\ProDelphiCE\API_ConsultasMedicas\src\controllers;D:\ProDelphiCE\API_ConsultasMedicas\src\repositories;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <DCC_UnitSearchPath>D:\ProDelphiCE\API_ConsultasMedicas\modules\jhonson\src;D:\ProDelphiCE\API_ConsultasMedicas\modules\horse-basic-auth\src;D:\ProDelphiCE\API_ConsultasMedicas\modules\horse-compression\src;D:\ProDelphiCE\API_ConsultasMedicas\src;D:\ProDelphiCE\API_ConsultasMedicas\src\services;D:\ProDelphiCE\API_ConsultasMedicas\src\controllers;D:\ProDelphiCE\API_ConsultasMedicas\src\repositories;D:\ProDelphiCE\API_ConsultasMedicas\modules\gbswagger;D:\ProDelphiCE\API_ConsultasMedicas\src\models;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <DCC_ExeOutput>D:\ProDelphiCE\API_ConsultasMedicas\</DCC_ExeOutput>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
@@ -144,6 +144,7 @@
         <DCCReference Include="src\services\ServiceMedicos.pas"/>
         <DCCReference Include="src\repositories\RepositoryMedicos.pas"/>
         <DCCReference Include="src\models\ModelMedicos.pas"/>
+        <DCCReference Include="src\models\Erros.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
