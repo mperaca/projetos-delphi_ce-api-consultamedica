@@ -16,15 +16,26 @@ uses
   ServiceMedicos in 'src\services\ServiceMedicos.pas',
   RepositoryMedicos in 'src\repositories\RepositoryMedicos.pas',
   ModelMedicos in 'src\models\ModelMedicos.pas',
-  Erros in 'src\models\Erros.pas';
+  Erros in 'src\models\Erros.pas',
+  RepositoryPacientes in 'src\repositories\RepositoryPacientes.pas',
+  ServicePacientes in 'src\services\ServicePacientes.pas',
+  ControllerPacientes in 'src\controllers\ControllerPacientes.pas',
+  ControllerConsultas in 'src\controllers\ControllerConsultas.pas',
+  ServiceConsultas in 'src\services\ServiceConsultas.pas',
+  RepositoryConsultas in 'src\repositories\RepositoryConsultas.pas',
+  ModelPacientes in 'src\models\ModelPacientes.pas',
+  ModelConsultas in 'src\models\ModelConsultas.pas';
 
-var usuarios: TJSONArray;
+var
     controllerMedico: TControllerMedico;
+    controllerPaciente: TControllerPaciente;
+    controllerConsulta: TControllerConsulta;
 
 begin
 
-  usuarios         := TJSONArray.Create;
-  controllerMedico := TControllerMedico.Create;
+  controllerMedico   := TControllerMedico.Create;
+  controllerPaciente := TControllerPaciente.Create;
+  controllerConsulta := TControllerConsulta.Create;
 
   THorse.Use(Compression());
   THorse.Use(Jhonson);
@@ -39,6 +50,8 @@ begin
     end));
 
   controllerMedico.Registro;
+  controllerPaciente.Registro;
+  controllerConsulta.Registro;
 
   THorse.Listen(9000);
 end.

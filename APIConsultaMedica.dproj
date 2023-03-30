@@ -145,6 +145,14 @@
         <DCCReference Include="src\repositories\RepositoryMedicos.pas"/>
         <DCCReference Include="src\models\ModelMedicos.pas"/>
         <DCCReference Include="src\models\Erros.pas"/>
+        <DCCReference Include="src\repositories\RepositoryPacientes.pas"/>
+        <DCCReference Include="src\services\ServicePacientes.pas"/>
+        <DCCReference Include="src\controllers\ControllerPacientes.pas"/>
+        <DCCReference Include="src\controllers\ControllerConsultas.pas"/>
+        <DCCReference Include="src\services\ServiceConsultas.pas"/>
+        <DCCReference Include="src\repositories\RepositoryConsultas.pas"/>
+        <DCCReference Include="src\models\ModelPacientes.pas"/>
+        <DCCReference Include="src\models\ModelConsultas.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
