@@ -12,17 +12,21 @@ uses
   Horse.BasicAuthentication,
   System.SysUtils,
   ControllerMedicos in 'src\controllers\ControllerMedicos.pas',
-  ServiceMedicos in 'src\services\ServiceMedicos.pas';
+  ServiceMedicos in 'src\services\ServiceMedicos.pas',
+  RepositoryMedicos in 'src\repositories\RepositoryMedicos.pas';
 
 var usuarios: TJSONArray;
+    controllerMedico: TControllerMedico;
 
 begin
 
-  usuarios := TJSONArray.Create;
+  usuarios         := TJSONArray.Create;
+  controllerMedico := TControllerMedico.Create;
 
   THorse.Use(Compression());
   THorse.Use(Jhonson);
 
+// Verifica Autenticação (Basic Authentication)
   THorse.Use(HorseBasicAuthentication(
     function(const AUsername, APassword: string): Boolean
     begin
@@ -30,7 +34,7 @@ begin
       Result := AUsername.Equals('user') and APassword.Equals('password');
     end));
 
-  ControllerMedicos.Registro;
+  controllerMedico.Registro;
 
   THorse.Listen(9000);
 end.

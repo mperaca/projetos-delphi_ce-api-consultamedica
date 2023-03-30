@@ -4,18 +4,25 @@ interface
 
 uses Horse, System.JSON, System.StrUtils, System.SysUtils, ServiceMedicos;
 
-
-procedure Registro;
+type
+  TControllerMedico = class
+  private
+  public
+    procedure Registro;
+  end;
 
 implementation
 
-procedure Registro;
+{ TControllerMedico }
+
+procedure TControllerMedico.Registro;
 var servico: TServicoMedico;
 begin
   try
     servico := TServicoMedico.Create;
 
     THorse.Get('/apiconsulta/v1/medicos',servico.ListarMedicos);
+    THorse.Get('/apiconsulta/v1/medicos/:id',servico.RetornaMedico);
 
     THorse.Post('/apiconsulta/v1/medicos',servico.CriarMedico);
 
@@ -27,7 +34,5 @@ begin
     servico.DisposeOf;
   end;
 end;
-
-
 
 end.

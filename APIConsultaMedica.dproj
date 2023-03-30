@@ -127,7 +127,7 @@
         <DCC_RemoteDebug>false</DCC_RemoteDebug>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <Manifest_File>(None)</Manifest_File>
-        <DCC_UnitSearchPath>D:\ProDelphiCE\API_ConsultasMedicas\modules\jhonson\src;D:\ProDelphiCE\API_ConsultasMedicas\modules\horse-basic-auth\src;D:\ProDelphiCE\API_ConsultasMedicas\modules\horse-compression\src;D:\ProDelphiCE\API_ConsultasMedicas\src;D:\ProDelphiCE\API_ConsultasMedicas\src\services;D:\ProDelphiCE\API_ConsultasMedicas\src\controllers;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <DCC_UnitSearchPath>D:\ProDelphiCE\API_ConsultasMedicas\modules\jhonson\src;D:\ProDelphiCE\API_ConsultasMedicas\modules\horse-basic-auth\src;D:\ProDelphiCE\API_ConsultasMedicas\modules\horse-compression\src;D:\ProDelphiCE\API_ConsultasMedicas\src;D:\ProDelphiCE\API_ConsultasMedicas\src\services;D:\ProDelphiCE\API_ConsultasMedicas\src\controllers;D:\ProDelphiCE\API_ConsultasMedicas\src\repositories;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <DCC_ExeOutput>D:\ProDelphiCE\API_ConsultasMedicas\</DCC_ExeOutput>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
@@ -142,6 +142,7 @@
         </DelphiCompile>
         <DCCReference Include="src\controllers\ControllerMedicos.pas"/>
         <DCCReference Include="src\services\ServiceMedicos.pas"/>
+        <DCCReference Include="src\repositories\RepositoryMedicos.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
