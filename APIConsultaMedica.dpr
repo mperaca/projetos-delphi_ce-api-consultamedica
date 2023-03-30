@@ -13,7 +13,8 @@ uses
   System.SysUtils,
   ControllerMedicos in 'src\controllers\ControllerMedicos.pas',
   ServiceMedicos in 'src\services\ServiceMedicos.pas',
-  RepositoryMedicos in 'src\repositories\RepositoryMedicos.pas';
+  RepositoryMedicos in 'src\repositories\RepositoryMedicos.pas',
+  ModelMedicos in 'src\models\ModelMedicos.pas';
 
 var usuarios: TJSONArray;
     controllerMedico: TControllerMedico;
