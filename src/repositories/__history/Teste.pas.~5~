@@ -1,0 +1,48 @@
+unit Teste;
+
+interface
+
+uses System.JSON;
+
+type
+  TTeste = class
+  private
+  public
+    function ListaTeste: TJSONArray;
+
+  end;
+
+function RetornaArray: TJSONArray;
+
+implementation
+
+function RetornaArray: TJSONArray;
+var lista: TJSONArray;
+    medico: TJSONObject;
+    counter: integer;
+begin
+  medico := TJSONObject.Create;
+  medico.AddPair('id','1');
+  medico.AddPair('nome','João');
+  lista  := TJSONArray.Create;
+  lista.AddElement(medico);
+
+  result := lista;
+end;
+
+{ TTeste }
+
+function TTeste.ListaTeste: TJSONArray;
+var lista: TJSONArray;
+    medico: TJSONObject;
+begin
+  medico := TJSONObject.Create;
+  medico.AddPair('id','1');
+  medico.AddPair('nome','João');
+  lista  := TJSONArray.Create;
+  lista.AddElement(medico);
+
+  result := lista;
+end;
+
+end.
