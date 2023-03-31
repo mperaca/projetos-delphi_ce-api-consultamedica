@@ -43,10 +43,11 @@ end;
 
 procedure TServicoMedico.ListarMedicos(Req: THorseRequest; Res: THorseResponse);
 var repositorio: TRepositorioMedico;
+    status: integer;
 begin
   repositorio := TRepositorioMedico.Create;
   try
-    Res.Send<TJSONArray>(repositorio.ListaMedicos);
+    status := Res.Send<TJSONArray>(repositorio.ListaMedicos).Status;
   finally
     repositorio.DisposeOf;
   end;

@@ -24,7 +24,8 @@ uses
   ServiceConsultas in 'src\services\ServiceConsultas.pas',
   RepositoryConsultas in 'src\repositories\RepositoryConsultas.pas',
   ModelPacientes in 'src\models\ModelPacientes.pas',
-  ModelConsultas in 'src\models\ModelConsultas.pas';
+  ModelConsultas in 'src\models\ModelConsultas.pas',
+  RepositoryConexao in 'src\repositories\RepositoryConexao.pas' {DataModuleConexao: TDataModule};
 
 var
     controllerMedico: TControllerMedico;

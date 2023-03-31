@@ -10,6 +10,7 @@
 		"github.com/hashload/jhonson": "^1.1.5",
 		"https://github.com/gabrielbaltazar/gbswagger": "^3.0.6",
 		"https://github.com/hashload/horse-basic-auth": "^1.2.3",
-		"https://github.com/hashload/horse-compression": "^1.1.8"
+		"https://github.com/hashload/horse-compression": "^1.1.8",
+		"https://github.com/viniciussanchez/dataset-serialize": "^v2.4.8"
 	}
 }
