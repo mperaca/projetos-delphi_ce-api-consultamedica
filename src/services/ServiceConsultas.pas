@@ -24,30 +24,71 @@ implementation
 
 procedure TServicoConsulta.AlterarConsulta(Req: THorseRequest;
   Res: THorseResponse);
+var consulta,retorno: TJSONObject;
+    repositorio: TRepositorioConsultas;
+    id: string;
 begin
-  Res.Send('Alterar Consulta');
+  consulta    := Req.Body<TJSONObject>;
+  repositorio := TRepositorioConsultas.Create;
+  try
+    Req.Params.TryGetValue('id',id);
+    retorno     := repositorio.AlteraConsulta(consulta,StrToInt(id));
+    if retorno.Count>0 then
+       Res.Send<TJSONObject>(retorno).Status(THTTPStatus.OK)
+    else
+       Res.Send<TJSONObject>(retorno).Status(THTTPStatus.BadRequest);
+  finally
+    repositorio.DisposeOf;
+  end;
 end;
 
 procedure TServicoConsulta.CriarConsulta(Req: THorseRequest;
   Res: THorseResponse);
+var consulta,retorno: TJSONObject;
+    repositorio: TRepositorioConsultas;
 begin
-  Res.Send('Criar Consulta');
+  repositorio := TRepositorioConsultas.Create;
+  try
+    consulta    := Req.Body<TJSONObject>;
+    retorno     := repositorio.IncluiConsulta(consulta);
+    if retorno.Count>0 then
+       Res.Send<TJSONObject>(retorno).Status(THTTPStatus.Created)
+    else
+       Res.Send<TJSONObject>(retorno).Status(THTTPStatus.BadRequest);
+  finally
+    repositorio.DisposeOf;
+  end;
 end;
 
 procedure TServicoConsulta.ExcluirConsulta(Req: THorseRequest;
   Res: THorseResponse);
 var repositorio: TRepositorioConsultas;
+    id: string;
 begin
-  Res.Send('Excluir Consulta');
+  repositorio := TRepositorioConsultas.Create;
+  try
+    Req.Params.TryGetValue('id',id);
+    if repositorio.ExcluiConsulta(StrToInt(id)) then
+       Res.Send('').Status(THTTPStatus.NoContent)
+    else
+       Res.Send('').Status(THTTPStatus.NotFound);
+  finally
+    repositorio.DisposeOf;
+  end;
 end;
 
 procedure TServicoConsulta.ListarConsultas(Req: THorseRequest;
   Res: THorseResponse);
 var repositorio: TRepositorioConsultas;
+    retorno: TJSONArray;
 begin
   repositorio := TRepositorioConsultas.Create;
   try
-    Res.Send(repositorio.RetornaListaConsultas);
+    retorno := repositorio.RetornaListaConsultas;
+    if retorno.Count>0 then
+       Res.Send<TJSONArray>(retorno)
+    else
+       Res.Send<TJSONArray>(retorno).Status(THTTPStatus.NotFound);
   finally
     repositorio.DisposeOf;
   end;

@@ -24,8 +24,19 @@ implementation
 { TServicoPaciente }
 
 procedure TServicoPaciente.CriarPaciente(Req: THorseRequest; Res: THorseResponse);
+var repositorio: TRepositorioPaciente;
+    retorno: TJSONObject;
 begin
-  Res.Send('Cria Paciente');
+  repositorio := TRepositorioPaciente.Create;
+  try
+    retorno   := repositorio.CriaPaciente(Req.Body<TJSONObject>);
+    if retorno.Count>0 then
+       Res.Send<TJSONObject>(retorno).Status(THTTPStatus.Created)
+    else
+       Res.Send<TJSONObject>(retorno).Status(THTTPStatus.BadRequest);
+  finally
+    repositorio.DisposeOf;
+  end;
 end;
 
 procedure TServicoPaciente.RetornaPaciente(Req: THorseRequest; Res: THorseResponse);
@@ -46,7 +57,7 @@ var repositorio: TRepositorioPaciente;
 begin
   repositorio := TRepositorioPaciente.Create;
   try
-    Res.Send<TJSONArray>(repositorio.ListaPacientes);
+    Res.Send<TJSONArray>(repositorio.ListaPacientes(Req.Query));
   finally
     repositorio.DisposeOf;
   end;
@@ -54,16 +65,37 @@ end;
 
 procedure TServicoPaciente.AlterarPaciente(Req: THorseRequest; Res: THorseResponse);
 var id: string;
+    repositorio: TRepositorioPaciente;
+    retorno: TJSONObject;
 begin
   Req.Params.TryGetValue('id',id);
-  Res.Send('Altera Paciente '+id);
+  repositorio := TRepositorioPaciente.Create;
+  try
+    retorno := repositorio.AlteraPaciente(Req.Body<TJSONObject>,StrToInt(id));
+    if retorno.Count>0 then
+       Res.Send<TJSONObject>(retorno).Status(THTTPStatus.OK)
+    else
+       Res.Send<TJSONObject>(retorno).Status(THTTPStatus.BadRequest);
+  finally
+    repositorio.DisposeOf;
+  end;
 end;
 
 procedure TServicoPaciente.ExcluirPaciente(Req: THorseRequest; Res: THorseResponse);
 var id: string;
+    repositorio: TRepositorioPaciente;
+    retorno: boolean;
 begin
-  Req.Params.TryGetValue('id',id);
-  Res.Send('Exclui Paciente '+id);
+  repositorio := TRepositorioPaciente.Create;
+  try
+    Req.Params.TryGetValue('id',id);
+    if repositorio.ExcluiPaciente(StrToInt(id)) then
+       Res.Send('').Status(THTTPStatus.NoContent)
+    else
+       Res.Send('').Status(THTTPStatus.NotFound);
+  finally
+    repositorio.DisposeOf;
+  end;
 end;
 
 procedure TServicoPaciente.GBSwagger;

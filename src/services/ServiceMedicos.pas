@@ -24,18 +24,39 @@ implementation
 { TServicoMedico }
 
 procedure TServicoMedico.CriarMedico(Req: THorseRequest; Res: THorseResponse);
+var newmedico,medico: TJSONObject;
+    repositorio: TRepositorioMedico;
+
 begin
-  Res.Send('Cria Médico');
+  medico := Req.Body<TJSONObject>;
+  repositorio := TRepositorioMedico.Create;
+  try
+    newmedico := repositorio.IncluiMedico(medico);
+    if newmedico.Count>0 then
+       Res.Send<TJSONObject>(newmedico).Status(THTTPStatus.Created)
+    else
+       Res.Send<TJSONObject>(newmedico).Status(THTTPStatus.InternalServerError);
+  finally
+    repositorio.DisposeOf;
+  end;
+
+
+  Res.Send('Cria Médico '+medico.GetValue('nome').ToString);
 end;
 
 procedure TServicoMedico.RetornaMedico(Req: THorseRequest; Res: THorseResponse);
 var repositorio: TRepositorioMedico;
     id: string;
+    medico: TJSONObject;
 begin
   repositorio := TRepositorioMedico.Create;
   try
     Req.Params.TryGetValue('id',id);
-    Res.Send<TJSONObject>(repositorio.RetornaMedico(StrToInt(id)));
+    medico := repositorio.RetornaMedico(StrToInt(id));
+    if medico.Count>0 then
+       Res.Send<TJSONObject>(medico)
+    else
+       Res.Send<TJSONObject>(medico).Status(THTTPStatus.NotFound);
   finally
     repositorio.DisposeOf;
   end;
@@ -43,11 +64,16 @@ end;
 
 procedure TServicoMedico.ListarMedicos(Req: THorseRequest; Res: THorseResponse);
 var repositorio: TRepositorioMedico;
-    status: integer;
+    value: string;
+    listamedicos: TJSONArray;
 begin
   repositorio := TRepositorioMedico.Create;
   try
-    status := Res.Send<TJSONArray>(repositorio.ListaMedicos).Status;
+    listamedicos := repositorio.ListaMedicos(Req.Query);
+    if listamedicos.Count>0 then
+       Res.Send<TJSONArray>(listamedicos)
+    else
+       Res.Send<TJSONArray>(listamedicos).Status(THTTPStatus.NotFound);
   finally
     repositorio.DisposeOf;
   end;
@@ -55,16 +81,36 @@ end;
 
 procedure TServicoMedico.AlterarMedico(Req: THorseRequest; Res: THorseResponse);
 var id: string;
+    repositorio: TRepositorioMedico;
+    retorno: TJSONObject;
 begin
   Req.Params.TryGetValue('id',id);
-  Res.Send('Altera Médico '+id);
+  repositorio := TRepositorioMedico.Create;
+  try
+    retorno := repositorio.AlteraMedico(Req.Body<TJSONObject>,StrToInt(id));
+    if retorno.Count>0 then
+       Res.Send<TJSONObject>(retorno).Status(THTTPStatus.OK)
+    else
+       Res.Send<TJSONObject>(retorno).Status(THTTPStatus.BadRequest);
+  finally
+    repositorio.DisposeOf;
+  end;
 end;
 
 procedure TServicoMedico.ExcluirMedico(Req: THorseRequest; Res: THorseResponse);
 var id: string;
+    repositorio: TRepositorioMedico;
 begin
   Req.Params.TryGetValue('id',id);
-  Res.Send('Exclui Médico '+id);
+  repositorio := TRepositorioMedico.Create;
+  try
+    if repositorio.ExcluiMedico(StrToInt(id)) then
+       Res.Send('').Status(THTTPStatus.NoContent)
+    else
+       Res.Send('').Status(THTTPStatus.NotFound);
+  finally
+    repositorio.DisposeOf;
+  end;
 end;
 
 procedure TServicoMedico.GBSwagger;
@@ -74,6 +120,24 @@ begin
     .Path('medicos')
       .Tag('Médico')
       .GET('Lista todos', 'Lista todos médicos')
+        .AddParamQuery('id','Filtro pelo campo "id"')
+          .Required(False)
+        .&End
+        .AddParamQuery('nome','Filtro pelo campo "nome"')
+          .Required(False)
+        .&End
+        .AddParamQuery('crm','Filtro pelo campo "crm"')
+          .Required(False)
+        .&End
+        .AddParamQuery('crm','Filtro pelo campo "especialidade"')
+          .Required(False)
+        .&End
+        .AddParamQuery('sort','Campo para ordenação')
+          .Required(False)
+        .&End
+        .AddParamQuery('order','Ordem da pesquisa (ASC/DESC)')
+          .Required(False)
+        .&End
         .AddResponse(200, 'successful operation')
           .Schema(TModelMedico)
           .IsArray(True)
@@ -105,6 +169,24 @@ begin
     .Path('medicos/{id}')
       .Tag('Médico')
       .GET('Retorna médico', 'Retorna médico específico')
+        .AddParamQuery('id','Filtro pelo campo "id"')
+          .Required(False)
+        .&End
+        .AddParamQuery('nome','Filtro pelo campo "nome"')
+          .Required(False)
+        .&End
+        .AddParamQuery('crm','Filtro pelo campo "crm"')
+          .Required(False)
+        .&End
+        .AddParamQuery('crm','Filtro pelo campo "especialidade"')
+          .Required(False)
+        .&End
+        .AddParamQuery('sort','Campo para ordenação')
+          .Required(False)
+        .&End
+        .AddParamQuery('order','Ordem da pesquisa (ASC/DESC)')
+          .Required(False)
+        .&End
         .AddResponse(200, 'successful operation')
           .Schema(TModelMedico)
           .IsArray(True)
