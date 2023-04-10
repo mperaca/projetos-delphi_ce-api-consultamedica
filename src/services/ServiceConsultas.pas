@@ -60,8 +60,7 @@ begin
   end;
 end;
 
-procedure TServicoConsulta.ExcluirConsulta(Req: THorseRequest;
-  Res: THorseResponse);
+procedure TServicoConsulta.ExcluirConsulta(Req: THorseRequest;  Res: THorseResponse);
 var repositorio: TRepositorioConsultas;
     id: string;
 begin
